@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Avatar, Button, Paper, Grid, Typography, Container, TextField } from '@material-ui/core'
+import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core'
 import { GoogleLogin } from 'react-google-login'
 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
@@ -69,8 +69,8 @@ const Auth = () => {
                     <Grid container spacing={2}>
                         { isSignup && (
                         <>  
-                            <Input name='firstName' label='First Name' onChange={handleChange} autoFocus half />
-                            <Input name='lastName' label='Last Name' onChange={handleChange} half />
+                            <Input name='firstName' label='First Name' handleChange={handleChange} autoFocus half />
+                            <Input name='lastName' label='Last Name' handleChange={handleChange} half />
                         </>
                         )}
                         <Input name='email' label='Email Address' handleChange={handleChange} type='email'/>

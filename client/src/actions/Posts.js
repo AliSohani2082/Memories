@@ -13,8 +13,9 @@ export const getPosts = () => async (dispatch) => {
 
 export const createPost = (post) => async (dispatch) => {
   try {
+    console.log('action function activated')
+    console.log(post)
     const { data } = await api.createPost(post);
-
     dispatch({ type: CREATE, payload: data });
   } catch (error) {
     console.log(error);
@@ -34,6 +35,7 @@ export const updatePost = (id, post) => async (dispatch) => {
 export const deletePost = (id) => async (dispatch) => {
   try {
     const { data } = await api.deletePost(id)
+    console.log(data.message)
     
     dispatch({ type: DELETE, payload: id})
   } catch (error) {
