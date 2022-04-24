@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { TextField, Button, Typography, Paper } from '@material-ui/core'
+import { TextField, Button, Typography, Paper, Unstable_TrapFocus } from '@material-ui/core'
 import FileBase from 'react-file-base64'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPost, updatePost } from '../../actions/Posts'
@@ -17,6 +17,9 @@ const Form = ({ currentId, setCurrentId }) => {
   const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null)
   const classes = useStyles()
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+  //const user = useSelector((state) => state.auth.authData)
+  console.log('Form reload...')
+
 
   useEffect(() => {
     if(post) setPostData(post)
