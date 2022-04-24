@@ -17,7 +17,6 @@ const Form = ({ currentId, setCurrentId }) => {
   const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null)
   const classes = useStyles()
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
-  const isLogedIn = useSelector((state) => state.auth.isLogedIn)
 
   useEffect(() => {
     if(post) setPostData(post)
@@ -41,7 +40,7 @@ const Form = ({ currentId, setCurrentId }) => {
     clear()
   }
 
-  if(!isLogedIn) {
+  if(!user?.result?.name) {
     return (
       <Paper className={classes.paper}>
         <Typography variant='h6' align='center'>
