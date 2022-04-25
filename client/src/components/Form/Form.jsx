@@ -37,6 +37,7 @@ const Form = ({ currentId, setCurrentId }) => {
       dispatch(createPost({ ... postData, name: user?.result?.name }))
     } else {
       console.log('update time!!')
+      console.log({ ... postData, name: user?.result?.name })
       dispatch(updatePost(currentId, { ... postData, name: user?.result?.name }))
     }
 
