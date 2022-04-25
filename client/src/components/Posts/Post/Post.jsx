@@ -9,12 +9,10 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import moment from 'moment'
 import { useDispatch } from 'react-redux'
 import { deletePost, likePost } from '../../../actions/Posts'
-import { useSelector } from 'react-redux'
-
 const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch()
   const classes = useStyles()
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+  const [user] = useState(JSON.parse(localStorage.getItem('profile')))
   const isCreator = user?.result?.googleId === post?.creator || user?.result?._id === post?.creator
 
   const Likes = () => {

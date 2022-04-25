@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { TextField, Button, Typography, Paper, Unstable_TrapFocus } from '@material-ui/core'
+import { TextField, Button, Typography, Paper } from '@material-ui/core'
 import FileBase from 'react-file-base64'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPost, updatePost } from '../../actions/Posts'
@@ -16,7 +16,7 @@ const Form = ({ currentId, setCurrentId }) => {
   })
   const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null)
   const classes = useStyles()
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+  const [user] = useState(JSON.parse(localStorage.getItem('profile')))
   //const user = useSelector((state) => state.auth.authData)
   console.log('Form reload...')
 
@@ -34,11 +34,11 @@ const Form = ({ currentId, setCurrentId }) => {
     
     if(!currentId){
       console.log('create time!!')
-      dispatch(createPost({ ... postData, name: user?.result?.name }))
+      dispatch(createPost({ ...postData, name: user?.result?.name }))
     } else {
       console.log('update time!!')
-      console.log({ ... postData, name: user?.result?.name })
-      dispatch(updatePost(currentId, { ... postData, name: user?.result?.name }))
+      console.log({ ...postData, name: user?.result?.name })
+      dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }))
     }
 
     clear()
@@ -62,7 +62,6 @@ const Form = ({ currentId, setCurrentId }) => {
   }
   return (
     <Paper className={classes.paper}>
-      <h6></h6>
       <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
         <Typography variant='h6'>{currentId? 'Editing' : 'Creating'} a Memory</Typography>
         <TextField  name='title' variant='outlined' label='Title' fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value})} />
