@@ -13,7 +13,7 @@ import ChipInput from "material-ui-chip-input";
 import Form from "../Form/Form";
 import Posts from "../Posts/Posts";
 import useStyles from "./styles";
-import { getPosts } from "../../actions/Posts";
+import { getPosts, getPostsBySearch } from "../../actions/Posts";
 import { useDispatch } from "react-redux";
 import Pagination from "../Pagination/Pagination";
 import App from "../../App";
@@ -34,8 +34,8 @@ const Home = () => {
   const [tags, setTags] = useState([]);
 
   const handleKeyPress = (e) => {
-    if (e.keyCode === 13) {
-      // search post
+    if (e.key === "Enter") {
+      searchPost();
     }
   };
 
@@ -53,8 +53,10 @@ const Home = () => {
   }, [currentId, dispatch]);
 
   const searchPost = () => {
-    if (search.trim()) {
-      //dispatch -> fetch search post
+    if (search.trim() || tags) {
+      dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
+    } else {
+      navigate("/");
     }
   };
 
@@ -98,6 +100,7 @@ const Home = () => {
                 onClick={searchPost}
                 className={classes.searchButton}
                 color="primary"
+                variant="contained"
               >
                 Search
               </Button>
