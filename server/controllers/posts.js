@@ -13,16 +13,22 @@ export const getPosts = async (req, res) => {
 
 export const getPostsBySearch = async (req, res) => {
   const { searchQuery, tags } = req.query;
-  try {
-    const title = /searchQuery/i;
-    console.log(searchQuery);
-    console.log(tags.split(","));
-    const posts = await PostMessage.find({ tags: tags.split(",") });
-    console.log("search started!");
 
-    res.status(200).json({ data: posts });
+  try {
+    const posts = await PostMessage.find({
+      $or: [
+        { title: { $regex: searchQuery, $options: "i" } },
+        { message: { $regex: searchQuery, $options: "i" } },
+        { creator: { $regex: searchQuery, $options: "i" } },
+        { name: { $regex: searchQuery, $options: "i" } },
+        { tags: { $in: tags.split(",") } },
+      ],
+    }).exec();
+    console.log("data is ready to be sent to the front end:");
+    console.log(posts);
+    res.json({ data: posts });
   } catch (error) {
-    res.status(404).json({ message: "shit!" });
+    res.status(404).json({ message: error.message });
   }
 };
 

@@ -54,6 +54,7 @@ const Home = () => {
 
   const searchPost = () => {
     if (search.trim() || tags) {
+      console.log({ search, tags: tags.join(",") });
       dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
     } else {
       navigate("/");

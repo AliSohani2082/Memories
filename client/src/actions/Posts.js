@@ -18,6 +18,7 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
       data: { data },
     } = await api.fetchPostsBySearch(searchQuery);
 
+    console.log("data resieved from backend:");
     console.log(data);
   } catch (error) {
     console.log(error);
