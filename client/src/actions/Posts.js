@@ -1,4 +1,6 @@
 import {
+  START_LOADING,
+  END_LOADING,
   FETCH_ALL,
   FETCH_BY_SEARCH,
   CREATE,
@@ -9,11 +11,13 @@ import * as api from "../api/index.js";
 
 export const getPosts = (page) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     const { data } = await api.fetchPosts(page);
 
     console.log(data);
 
     dispatch({ type: FETCH_ALL, payload: data });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
   }
@@ -21,12 +25,14 @@ export const getPosts = (page) => async (dispatch) => {
 
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     console.log("search action");
     const {
       data: { data },
     } = await api.fetchPostsBySearch(searchQuery);
 
     dispatch({ type: FETCH_BY_SEARCH, payload: data });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
   }
@@ -34,10 +40,12 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 
 export const createPost = (post) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     console.log("action function activated");
     console.log(post);
     const { data } = await api.createPost(post);
     dispatch({ type: CREATE, payload: data });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
   }

@@ -41,6 +41,7 @@ const Form = ({ currentId, setCurrentId }) => {
     } else {
       console.log("update time!!");
       console.log({ ...postData, name: user?.result?.name });
+
       dispatch(
         updatePost(currentId, { ...postData, name: user?.result?.name })
       );
@@ -68,8 +69,9 @@ const Form = ({ currentId, setCurrentId }) => {
       selectedFile: "",
     });
   };
+
   return (
-    <Paper className={classes.paper}>
+    <Paper className={classes.paper} elevation={6}>
       <form
         autoComplete="off"
         noValidate
